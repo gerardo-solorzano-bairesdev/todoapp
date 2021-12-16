@@ -93,7 +93,7 @@ const Container = ({ checkView }) => {
   );
 
   return (
-    <div>
+    <div className="content  active-content">
       {jsxTaskAddForm}
       {jsxTaskList}
     </div>

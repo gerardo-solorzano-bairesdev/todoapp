@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -10,30 +10,22 @@ import {
 import Container from "./components/Container";
 
 function Tabs() {
-  const [toggleState, setToggleState] = useState(0);
+  const [currentTab, setCurrentTab] = useState(0);
   const routes = [
     { path: "/todo", label: "ToDo" },
     { path: "/done", label: "Done" },
   ];
-
-  //const location = useLocation();
-
+  /*
   const toggleTab = (index) => {
     console.log("index in toggleTab:" + index);
-    setToggleState(index);
-  };
-
-  /*
-  function handleRouteToHome(index) {
-    let navigate = useNavigate();
-    navigate("/home");
-    toggleTab(index);
+    setCurrentTab(index);
   };
   */
 
-  useEffect(() => {
-    console.log(toggleState);
-  }, [toggleState]);
+  const handleToggle = (index) => {
+    console.log("new   index in toggleTab:" + index);
+    setCurrentTab(index);
+  };
 
   function findIndexByRoute(route) {
     let indexFound = 0;
@@ -46,25 +38,37 @@ function Tabs() {
     return indexFound;
   }
 
-  const Tab = ({ index }) => {
-    const location = useLocation();
-    const realIndex = findIndexByRoute(location.pathname);
+  const didMount = useRef(false);
 
-    toggleTab(realIndex);
-    console.log("realIndex:" + realIndex);
-    console.log("route:" + location.pathname);
+  const location = useLocation();
+  useEffect(() => {
+    if (didMount.current) {
+      console.log("I run if toggle changes.");
+    } else {
+      didMount.current = true;
+      console.log("I run only at mount.");
+
+      const initialIndex = findIndexByRoute(location.pathname);
+
+      setCurrentTab(initialIndex);
+    }
+  }, [currentTab]);
+
+  const Tab = ({ index, handleToggle }) => {
+    //console.log("realIndex:" + realIndex);
+    //console.log("route:" + location.pathname);
+
+    //console.log("index param:" + index);
     let navigate = useNavigate();
-
-    const handleClick = () => {
-      toggleTab(index);
+    function handleClick() {
+      handleToggle();
       navigate(routes[index].path);
-    };
-    console.log("index param:" + index);
+    }
 
     return (
       <>
         <button
-          className={toggleState === index ? "tabs active-tabs" : "tabs"}
+          className={currentTab === index ? "tabs active-tabs" : "tabs"}
           onClick={handleClick}
         >
           {routes[index].label}
@@ -77,8 +81,8 @@ function Tabs() {
     <Router>
       <div className="container">
         <div className="bloc-tabs">
-          <Tab index={0}></Tab>
-          <Tab index={1}></Tab>
+          <Tab index={0} handleToggle={handleToggle}></Tab>
+          <Tab index={1} handleToggle={handleToggle}></Tab>
         </div>
         <Routes>
           <Route path="/todo" element={<Container checkView={false} />} />

@@ -2,12 +2,12 @@ import logo from "./logo.svg";
 import "./App.css";
 import Container from "./components/Container";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Tabs from "./Tabs";
+import TabRouter from "./TabRouter";
 
 function App() {
   return (
     <div className="App">
-      <Tabs />
+      <TabRouter />
     </div>
   );
 }
