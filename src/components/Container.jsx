@@ -2,19 +2,29 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import TaskAddForm from "./TaskAddForm";
 import TaskList from "./TaskList";
-import axios from "axios";
+import { apiGetTasks, apiUpdateTask, apiCreateTask } from "../app/api";
+import { createTask, updateTask, getTasks } from "../app/tasksSlice";
+import { useSelector, useDispatch } from "react-redux";
 
-const baseURL = "http://localhost:5000";
+//const baseURL = "http://localhost:5000";
 
 const Container = ({ checkView }) => {
-  const [taskList, setTaskList] = useState([]);
+  //const [taskList, setTaskList] = useState([]);
 
-    useEffect(() => {
-    axios.get(baseURL + "/api/todos/").then((response) => {
-      setTaskList(response.data.todos);
-    });
+  //const taskList = useSelector((state) => state.container.taskList);
+  //const taskList = useSelector(getTasks)
+  const { tasks, isLoading } = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //axios.get(baseURL + "/api/todos/").then((response) => {
+    //setTaskList(response.data.todos);
+    //});
+    console.log("taskList: " + tasks);
+    dispatch(apiGetTasks());
+    console.log("taskList: " + tasks);
   }, []);
-
+  /*
   const handleAddTask = (task) => {
     axios
       .post(baseURL + "/api/todos/", {
@@ -25,12 +35,26 @@ const Container = ({ checkView }) => {
         setTaskList([...taskList, newtask]);
       });
   };
+*/
 
-
+  const handleAddTask = (task) => {
+    dispatch(apiCreateTask(task));
+  };
   const findTaskIndexById = (taskId) => {
-    return taskList.findIndex((task) => task.id === taskId);
+    return tasks.findIndex((task) => task.id === taskId);
   };
 
+  const findTaskById = (taskId) => {
+    return tasks.find((task) => task.id === taskId);
+  };
+
+  const handleCheckTask = (taskId) => {
+    const task1 = findTaskById(taskId);
+    console.log("handleCheckTask = (task1)   " + task1.body);
+    dispatch(apiUpdateTask(task1));
+  };
+
+  /*
   const handleUpdate = (index, task) => {
     const tempTaskList = [...taskList];
 
@@ -52,9 +76,11 @@ const Container = ({ checkView }) => {
     handleUpdate(taskIndex, modifiedTask);
   };
 
+  */
+
   const jsxTaskList = (
     <TaskList
-      taskList={taskList}
+      taskList={tasks}
       handleCheckTask={handleCheckTask}
       checkView={checkView}
     />
@@ -67,7 +93,7 @@ const Container = ({ checkView }) => {
   );
 
   return (
-    <div >
+    <div>
       {jsxTaskAddForm}
       {jsxTaskList}
     </div>
