@@ -1,20 +1,21 @@
 import React from "react";
-
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 const Task = ({ task, onChange }) => {
   return (
     <div>
-      <input
-        name={task.id}
-        type="checkbox"
-        defaultChecked={task.done}
-        onChange={onChange}
-      ></input>
-      {task.body}
+      <FormControlLabel
+        control={
+          <Checkbox
+            name={task.id}
+            defaultChecked={task.done}
+            onChange={onChange}
+          />
+        }
+        label={task.body}
+      />
     </div>
   );
 };
-
-
 
 export default Task;

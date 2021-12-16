@@ -11,7 +11,11 @@ const Tasklist = ({ taskList, handleCheckTask, checkView }) => {
     .filter((task) => task.done === checkView)
     .map((task) => <Task key={task.id} task={task} onChange={onChange} />);
 
-  return <div>{taskList.length ? jsxTaskList : "No tasks"}</div>;
+  return (
+    <div style={{ marginLeft: "50px" }}>
+      {taskList.length ? jsxTaskList : "No tasks"}
+    </div>
+  );
 };
 
 export default Tasklist;

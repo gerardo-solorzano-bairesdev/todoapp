@@ -15,7 +15,7 @@ const TaskAddForm = ({ handleAddTask }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ marginLeft: "50px" }}>
       <input
         type="text"
         placeholder="Add new task"

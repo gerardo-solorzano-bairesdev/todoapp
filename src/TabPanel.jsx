@@ -1,13 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
-import Container from "./components/Container";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function TabPanel() {
   const tabIndexes = { TabTodo: 0, TabDone: 1 };
@@ -54,11 +47,6 @@ function TabPanel() {
   };
 
   const Tab = ({ index, handleToggle }) => {
-    //console.log("realIndex:" + realIndex);
-    //console.log("route:" + location.pathname);
-
-    //console.log("index param:" + index);
-
     return (
       <>
         <button
