@@ -12,11 +12,6 @@ const Container = ({ checkView }) => {
     console.log(taskList);
   };
 
-  const handleRemoveTask = (task) => {
-    console.log(task, taskList);
-    setTaskList(taskList.filter((task) => !task.done));
-    console.log(taskList);
-  };
 
   const findTaskIndexById = (taskId) => {
     console.log(taskId, taskList);
@@ -32,17 +27,28 @@ const Container = ({ checkView }) => {
   };
 
   const handleCheckTask = (taskId) => {
+      console.log("handleCheckTask = (taskId) " + taskId)
+      console.log("handleCheckTask = (taskList) " + taskList)
     const taskIndex = findTaskIndexById(taskId);
     const originalTask = taskList[taskIndex];
     const modifiedTask = { ...originalTask, done: !originalTask.done };
     handleUpdate(taskIndex, modifiedTask);
+    console.log("handleCheckTask = (taskList) " + taskList)
   };
 
-  const jsxTaskList = (
+  const jsxTaskListToDo = (
     <TaskList
       taskList={taskList}
       handleCheckTask={handleCheckTask}
-      checkView={checkView}
+      checkView={false}
+    />
+  );
+
+    const jsxTaskListDone = (
+    <TaskList
+      taskList={taskList}
+      handleCheckTask={handleCheckTask}
+      checkView={true}
     />
   );
 
@@ -53,13 +59,12 @@ const Container = ({ checkView }) => {
   );
 
   return (
-    <div className="content  active-content">
+    <div >
       {jsxTaskAddForm}
-      {jsxTaskList}
+      {jsxTaskListToDo}
+      {jsxTaskListDone}
     </div>
   );
 };
-
-Container.propTypes = {};
 
 export default Container;
