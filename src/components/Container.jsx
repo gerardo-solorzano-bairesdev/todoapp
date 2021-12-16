@@ -20,10 +20,10 @@ const Container = ({ checkView }) => {
     //axios.get(baseURL + "/api/todos/").then((response) => {
     //setTaskList(response.data.todos);
     //});
-    console.log("taskList: " + tasks);
+    //console.log("taskList: " + tasks);
     dispatch(apiGetTasks());
-    console.log("taskList: " + tasks);
-  }, []);
+    console.log("tasks list len: " + tasks.length);
+  }, [dispatch]);
   /*
   const handleAddTask = (task) => {
     axios
