@@ -22,7 +22,6 @@ const Container = ({ checkView }) => {
   const handleUpdate = (index, task) => {
     const newTaskList = [...taskList];
     newTaskList[index] = task;
-    //setTaskList(newTaskList.filter((task) => task.done === checkView));
     setTaskList(newTaskList);
   };
 
