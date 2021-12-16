@@ -1,38 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../App.css";
 import TaskAddForm from "./TaskAddForm";
 import TaskList from "./TaskList";
+import axios from "axios";
+
+const baseURL = "http://localhost:5000";
 
 const Container = ({ checkView }) => {
   const [taskList, setTaskList] = useState([]);
 
+    useEffect(() => {
+    axios.get(baseURL + "/api/todos/").then((response) => {
+      setTaskList(response.data.todos);
+    });
+  }, []);
+
   const handleAddTask = (task) => {
-    console.log(task, taskList);
-    setTaskList([...taskList, task]);
-    console.log(taskList);
+    axios
+      .post(baseURL + "/api/todos/", {
+        body: task.body,
+      })
+      .then((response) => {
+        const newtask = response.data;
+        setTaskList([...taskList, newtask]);
+      });
   };
 
 
   const findTaskIndexById = (taskId) => {
-    console.log(taskId, taskList);
-
     return taskList.findIndex((task) => task.id === taskId);
   };
 
   const handleUpdate = (index, task) => {
-    const newTaskList = [...taskList];
-    newTaskList[index] = task;
-    setTaskList(newTaskList);
+    const tempTaskList = [...taskList];
+
+    axios
+      .put(baseURL + "/api/todos/" + task.id, {
+        done: task.done,
+      })
+      .then((response) => {
+        const newtask = response.data;
+        tempTaskList[index] = newtask;
+        setTaskList(tempTaskList);
+      });
   };
 
   const handleCheckTask = (taskId) => {
-      console.log("handleCheckTask = (taskId) " + taskId)
-      console.log("handleCheckTask = (taskList) " + taskList)
     const taskIndex = findTaskIndexById(taskId);
     const originalTask = taskList[taskIndex];
     const modifiedTask = { ...originalTask, done: !originalTask.done };
     handleUpdate(taskIndex, modifiedTask);
-    console.log("handleCheckTask = (taskList) " + taskList)
   };
 
   const jsxTaskList = (
