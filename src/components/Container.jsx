@@ -36,19 +36,11 @@ const Container = ({ checkView }) => {
     console.log("handleCheckTask = (taskList) " + taskList)
   };
 
-  const jsxTaskListToDo = (
+  const jsxTaskList = (
     <TaskList
       taskList={taskList}
       handleCheckTask={handleCheckTask}
-      checkView={false}
-    />
-  );
-
-    const jsxTaskListDone = (
-    <TaskList
-      taskList={taskList}
-      handleCheckTask={handleCheckTask}
-      checkView={true}
+      checkView={checkView}
     />
   );
 
@@ -61,8 +53,7 @@ const Container = ({ checkView }) => {
   return (
     <div >
       {jsxTaskAddForm}
-      {jsxTaskListToDo}
-      {jsxTaskListDone}
+      {jsxTaskList}
     </div>
   );
 };
