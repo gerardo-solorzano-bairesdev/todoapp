@@ -12,9 +12,7 @@ function TestRouter() {
 
 test("Renders TabPanel component", () => {
   render(<TestRouter />);
-  //screen.debug();
   const buttonsList = screen.queryAllByRole("button");
-  console.log(buttonsList[1].className);
   expect(buttonsList[0].className).toBe("tabs active-tabs");
   expect(buttonsList[1].className).toBe("tabs");
 });
