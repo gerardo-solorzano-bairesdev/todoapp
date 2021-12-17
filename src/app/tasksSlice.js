@@ -4,35 +4,32 @@ const slice = createSlice({
   name: "tasks",
   initialState: {
     tasks: [],
+    isLoading: false,
   },
   reducers: {
     getTasks: (state, action) => {
       state.tasks = action.payload;
-      //state.tasks = [{ id: "1", body: "asdasdas", done: false }];
-      //state.tasks = [{ id: "1", body: "asdasdas", done: false }];
-      /*
-      axios.get(baseURL + "/api/todos/").then((response) => {
-        setTaskList(response.data.todos);
-      });
-      */
+      state.isLoading = false;
+
+      return state;
     },
     createTask: (state, action) => {
-      //state.tasks = action.payload;
-      state.tasks = [
-        { id: "1", body: "asdasdas", done: false },
-        { id: "2", body: "fghfghfg", done: false },
-      ];
+      state.push(action.payload);
+      console.log(state.value);
+      return state;
     },
     updateTask: (state, action) => {
-      //state.tasks = action.payload;
       state.tasks = [
         { id: "1", body: "asdasdas", done: false },
         { id: "2", body: "fghfghfg", done: true },
       ];
     },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { getTasks, createTask, updateTask } = slice.actions;
+export const { getTasks, createTask, updateTask, setLoading } = slice.actions;
 
 export default slice.reducer;

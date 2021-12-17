@@ -3,7 +3,7 @@ import Task from "./Task";
 
 const Tasklist = ({ taskList, handleCheckTask, checkView }) => {
   const onChange = (e) => {
-    const { name: taskId, checked } = e.target;
+    const { name: taskId } = e.target;
     handleCheckTask(taskId);
   };
 

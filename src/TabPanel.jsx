@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function TabPanel() {
   const tabIndexes = { TabTodo: 0, TabDone: 1 };
   const [currentTab, setCurrentTab] = useState(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const routes = [
     { path: "/todo", label: "ToDo" },
     { path: "/done", label: "Done" },
@@ -21,28 +22,21 @@ function TabPanel() {
     return indexFound;
   }
 
-  const didMount = useRef(false);
-
   const location = useLocation();
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (didMount.current) {
-      //Mounted
-      console.log("I run if toggle changes." + currentTab);
-      navigate(routes[currentTab].path);
-    } else {
-      // Not Mounted
-      didMount.current = true;
-      console.log("I run only at mount.");
+    const initialIndex = findIndexByRoute(location.pathname);
+    setCurrentTab(initialIndex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-      const initialIndex = findIndexByRoute(location.pathname);
-
-      setCurrentTab(initialIndex);
-    }
+  useEffect(() => {
+    navigate(routes[currentTab].path);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTab]);
 
   const handleToggle = (index) => {
-    console.log("new   index in toggleTab:" + index);
     setCurrentTab(index);
   };
 
