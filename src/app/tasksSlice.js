@@ -15,7 +15,6 @@ const slice = createSlice({
     },
     createTask: (state, action) => {
       state.push(action.payload);
-      console.log(state.value);
       return state;
     },
     updateTask: (state, action) => {

@@ -10,7 +10,6 @@ const TaskAddForm = ({ handleAddTask }) => {
       done: false,
       body: taskBody,
     });
-    console.log(taskBody);
     setTaskBody("");
   };
 

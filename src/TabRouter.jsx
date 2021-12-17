@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Container from "./components/Container";
 import TabPanel from "./TabPanel";
 
-function TabRouter() {
+function TabRouter({ initialEntries }) {
   return (
-    <Router>
+    <Router initialEntries={initialEntries}>
       <div className="container">
         <TabPanel />
         <Routes>
