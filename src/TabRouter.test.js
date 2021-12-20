@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { createMemoryHistory } from "history";
 //import React from "react";
 import { MemoryRouter } from "react-router";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Container from "./components/Container";
 import TabPanel from "./TabPanel";
 
@@ -17,7 +17,7 @@ function TestRouter(initialEntries) {
         <Routes>
           <Route path="/todo" element={<Container checkView={false} />} />
           <Route path="/done" element={<Container checkView={true} />} />
-          <Route path="*" element={<Container checkView={false} />} />
+          <Route path="*" element={<Link to="/todo">About</Link>} />
         </Routes>
       </div>
     </MemoryRouter>
