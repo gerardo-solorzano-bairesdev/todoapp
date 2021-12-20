@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import * as reactRedux from "react-redux";
-import App from "./App";
+import Container from "./Container";
 import userEvent from "@testing-library/user-event";
-import reducer, { createTask } from "./app/tasksSlice";
+import reducer, { createTask } from "../app/tasksSlice";
 
-test("insert a new one task and assert it", () => {
+test("Renders Container, insert a new one task and assert it", () => {
   const TEXT1 = "Learn React";
   const TEXT2 = "Visit Brazil";
   const TEXT3 = "Go to the mall";
@@ -23,7 +23,7 @@ test("insert a new one task and assert it", () => {
     return voidFn;
   });
 
-  render(<App />);
+  render(<Container checkView={false} />);
 
   expect(screen.getByText(TEXT1)).toBeInTheDocument();
   expect(screen.queryByText(TEXT2)).not.toBeInTheDocument();
@@ -39,7 +39,7 @@ test("insert a new one task and assert it", () => {
   expect(Object.keys(newState).length).toBe(3);
 });
 
-test("render 2 task (1 Done 1 ToDo) and assert them", () => {
+test("Renders Container with 2 tasks (1 Done 1 ToDo) and assert them", () => {
   const TEXT1 = "Learn React";
   const TEXT2 = "Visit Brazil";
   jest.spyOn(reactRedux, "useSelector").mockImplementation(() => ({
@@ -55,13 +55,8 @@ test("render 2 task (1 Done 1 ToDo) and assert them", () => {
     return voidFn;
   });
 
-  render(<App />);
+  render(<Container checkView={false} />);
 
   expect(screen.getByText(TEXT1)).toBeInTheDocument();
   expect(screen.queryByText(TEXT2)).not.toBeInTheDocument();
-
-  const leftClick = { button: 0 };
-  userEvent.click(screen.getByText(/Done/i), leftClick);
-  expect(screen.getByText(TEXT2)).toBeInTheDocument();
-  expect(screen.queryByText(TEXT1)).not.toBeInTheDocument();
 });
