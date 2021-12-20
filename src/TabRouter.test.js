@@ -1,11 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import TabRouter from "./TabRouter";
+
 import * as reactRedux from "react-redux";
-import userEvent from "@testing-library/user-event";
-import { createMemoryHistory } from "history";
-//import React from "react";
+
 import { MemoryRouter } from "react-router";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Container from "./components/Container";
 import TabPanel from "./TabPanel";
 

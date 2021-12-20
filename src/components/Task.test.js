@@ -10,7 +10,7 @@ describe("Task", () => {
     expect(screen.getByText(TEXT1)).toBeInTheDocument();
   });
 
-  test("Test checkbox", () => {
+  test("should checked", () => {
     const onChange = jest.fn();
     const TEXT1 = "Learn React";
     const task = { id: "1", body: TEXT1, done: false };

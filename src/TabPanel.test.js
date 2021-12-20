@@ -1,7 +1,7 @@
-import { getByRole, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import TabPanel from "./TabPanel";
-import userEvent from "@testing-library/user-event";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import { BrowserRouter as Router } from "react-router-dom";
 function TestRouter() {
   return (
     <Router>
